@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\bootstrap\mynavbar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
@@ -26,21 +27,23 @@ AppAsset::register($this);
     <div class="wrap">
         <?php
             NavBar::begin([
-                'brandLabel' => 'My Company',
+                'brandLabel' => 'Pozo Web',
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
-                    'class' => 'navbar-inverse navbar-fixed-top',
+                    'class' => 'navbar-default navbar-fixed-top',
                 ],
             ]);
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
-                    ['label' => 'Home', 'url' => ['/site/index']],
-                    ['label' => 'About', 'url' => ['/site/about']],
-                    ['label' => 'Contact', 'url' => ['/site/contact']],
+                    ['label' => 'Inicio', 'url' => ['/site/index']],
+                    ['label' => 'Bloques', 'url' => ['/bloques'], 'visible' => !Yii::$app->user->isGuest &&Yii::$app->user->identity->rol=='100'],
+                    ['label' => 'Datos Generales', 'url' => ['/pozos'], 'visible' => !Yii::$app->user->isGuest &&Yii::$app->user->identity->rol=='100'],
+                    ['label' => 'Desviaciones', 'url' => ['/desviacion'], 'visible' => !Yii::$app->user->isGuest &&Yii::$app->user->identity->rol=='100'],
+                    ['label' => 'Resumen', 'url' => ['/resumen'], 'visible' => !Yii::$app->user->isGuest &&Yii::$app->user->identity->rol=='100'],
                     Yii::$app->user->isGuest ?
-                        ['label' => 'Login', 'url' => ['/site/login']] :
-                        ['label' => 'Logout (' . Yii::$app->user->identity->username . ')',
+                        ['label' => 'Iniciar Sesión', 'url' => ['/site/login']] :
+                        ['label' => 'Cerrar Sesión (' . Yii::$app->user->identity->username . ')',
                             'url' => ['/site/logout'],
                             'linkOptions' => ['data-method' => 'post']],
                 ],
